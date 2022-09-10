@@ -1,0 +1,81 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="Хранилище Каталог_видеоигрModelContainer" CdmEntityContainer="Каталог_видеоигрEntities2">
+    <EntitySetMapping Name="sysdiagrams">
+      <EntityTypeMapping TypeName="Каталог_видеоигрModel.sysdiagrams">
+        <MappingFragment StoreEntitySet="sysdiagrams">
+          <ScalarProperty Name="name" ColumnName="name" />
+          <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+          <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+          <ScalarProperty Name="version" ColumnName="version" />
+          <ScalarProperty Name="definition" ColumnName="definition" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Администраторы">
+      <EntityTypeMapping TypeName="Каталог_видеоигрModel.Администраторы">
+        <MappingFragment StoreEntitySet="Администраторы">
+          <ScalarProperty Name="ID_admin" ColumnName="ID admin" />
+          <ScalarProperty Name="Никнейм" ColumnName="Никнейм" />
+          <ScalarProperty Name="Пароль" ColumnName="Пароль" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Видеоигра">
+      <EntityTypeMapping TypeName="Каталог_видеоигрModel.Видеоигра">
+        <MappingFragment StoreEntitySet="Видеоигра">
+          <ScalarProperty Name="Номер" ColumnName="Номер" />
+          <ScalarProperty Name="Название" ColumnName="Название" />
+          <ScalarProperty Name="Дата_выхода" ColumnName="Дата_выхода" />
+          <ScalarProperty Name="Жанр" ColumnName="Жанр" />
+          <ScalarProperty Name="Рейтинг" ColumnName="Рейтинг" />
+          <ScalarProperty Name="Количество_оценок" ColumnName="Количество_оценок" />
+          <ScalarProperty Name="Студия_разработчик" ColumnName="Студия_разработчик" />
+          <ScalarProperty Name="Издатель" ColumnName="Издатель" />
+          <ScalarProperty Name="Описание" ColumnName="Описание" />
+          <ScalarProperty Name="Среднее_время_прохождения" ColumnName="Среднее_время_прохождения" />
+          <ScalarProperty Name="Минимальные_системные_требования" ColumnName="Минимальные_системные_требования" />
+          <ScalarProperty Name="Рекомендованные_системные_требования" ColumnName="Рекомендованные_системные_требования" />
+          <ScalarProperty Name="картинка" ColumnName="картинка" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Избранное">
+      <EntityTypeMapping TypeName="Каталог_видеоигрModel.Избранное">
+        <MappingFragment StoreEntitySet="Избранное">
+          <ScalarProperty Name="ID_избранного" ColumnName="ID избранного" />
+          <ScalarProperty Name="Номер_игры" ColumnName="Номер игры" />
+          <ScalarProperty Name="ID_пользователя" ColumnName="ID пользователя" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="лого">
+      <EntityTypeMapping TypeName="Каталог_видеоигрModel.лого">
+        <MappingFragment StoreEntitySet="лого">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="screen" ColumnName="screen" />
+          <ScalarProperty Name="screen_format" ColumnName="screen_format" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Оценённые">
+      <EntityTypeMapping TypeName="Каталог_видеоигрModel.Оценённые">
+        <MappingFragment StoreEntitySet="Оценённые">
+          <ScalarProperty Name="Оценка" ColumnName="Оценка" />
+          <ScalarProperty Name="ID_Оцененного" ColumnName="ID_Оцененного" />
+          <ScalarProperty Name="Номер_Игры" ColumnName="Номер_Игры" />
+          <ScalarProperty Name="ID_Пользователя" ColumnName="ID_Пользователя" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Пользователи">
+      <EntityTypeMapping TypeName="Каталог_видеоигрModel.Пользователи">
+        <MappingFragment StoreEntitySet="Пользователи">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="Никнейм" ColumnName="Никнейм" />
+          <ScalarProperty Name="Пароль" ColumnName="Пароль" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

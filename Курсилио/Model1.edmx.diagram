@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="924c2ff3eaf14aa493147dc4f90f657d" Name="Diagram1">
+        <EntityTypeShape EntityType="Каталог_видеоигрModel.sysdiagrams" Width="1.5" PointX="5.75" PointY="7.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Каталог_видеоигрModel.Администраторы" Width="1.5" PointX="7.75" PointY="2.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Каталог_видеоигрModel.Видеоигра" Width="1.5" PointX="3" PointY="2.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Каталог_видеоигрModel.Избранное" Width="1.5" PointX="5.25" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Каталог_видеоигрModel.лого" Width="1.5" PointX="0.75" PointY="3.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="Каталог_видеоигрModel.Оценённые" Width="1.5" PointX="5.25" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Каталог_видеоигрModel.Пользователи" Width="1.5" PointX="3" PointY="8.5" IsExpanded="true" />
+        <AssociationConnector Association="Каталог_видеоигрModel.FK_Видеоигра_лого" ManuallyRouted="false" />
+        <AssociationConnector Association="Каталог_видеоигрModel.FK_Избранное_Видеоигра" ManuallyRouted="false" />
+        <AssociationConnector Association="Каталог_видеоигрModel.FK_Оценённые_Видеоигра" ManuallyRouted="false" />
+        <AssociationConnector Association="Каталог_видеоигрModel.FK_Избранное_Пользователи" ManuallyRouted="false" />
+        <AssociationConnector Association="Каталог_видеоигрModel.FK_Оценённые_Пользователи" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

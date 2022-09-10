@@ -1,0 +1,443 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="Хранилище Каталог_видеоигрModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <EntityType Name="Администраторы">
+          <Key>
+            <PropertyRef Name="ID admin" />
+          </Key>
+          <Property Name="ID admin" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Никнейм" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Пароль" Type="nvarchar(max)" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Видеоигра">
+          <Key>
+            <PropertyRef Name="Номер" />
+          </Key>
+          <Property Name="Номер" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Название" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Дата_выхода" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Жанр" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Рейтинг" Type="float" Nullable="false" />
+          <Property Name="Количество_оценок" Type="int" Nullable="false" />
+          <Property Name="Студия_разработчик" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Издатель" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Описание" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Среднее_время_прохождения" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Минимальные_системные_требования" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Рекомендованные_системные_требования" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="картинка" Type="int" />
+        </EntityType>
+        <EntityType Name="Избранное">
+          <Key>
+            <PropertyRef Name="ID избранного" />
+          </Key>
+          <Property Name="ID избранного" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Номер игры" Type="int" Nullable="false" />
+          <Property Name="ID пользователя" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="лого">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="screen" Type="image" Nullable="false" />
+          <Property Name="screen_format" Type="nvarchar(max)" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Оценённые">
+          <Key>
+            <PropertyRef Name="ID_Оцененного" />
+          </Key>
+          <Property Name="ID_Оцененного" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Номер_Игры" Type="int" Nullable="false" />
+          <Property Name="ID_Пользователя" Type="int" Nullable="false" />
+          <Property Name="Оценка" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Пользователи">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Никнейм" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Пароль" Type="nvarchar(max)" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_Видеоигра_лого">
+          <End Role="лого" Type="Self.лого" Multiplicity="0..1" />
+          <End Role="Видеоигра" Type="Self.Видеоигра" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="лого">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Видеоигра">
+              <PropertyRef Name="картинка" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Избранное_Видеоигра">
+          <End Role="Видеоигра" Type="Self.Видеоигра" Multiplicity="1" />
+          <End Role="Избранное" Type="Self.Избранное" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Видеоигра">
+              <PropertyRef Name="Номер" />
+            </Principal>
+            <Dependent Role="Избранное">
+              <PropertyRef Name="Номер игры" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Избранное_Пользователи">
+          <End Role="Пользователи" Type="Self.Пользователи" Multiplicity="1" />
+          <End Role="Избранное" Type="Self.Избранное" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Пользователи">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Избранное">
+              <PropertyRef Name="ID пользователя" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Оценённые_Видеоигра">
+          <End Role="Видеоигра" Type="Self.Видеоигра" Multiplicity="1" />
+          <End Role="Оценённые" Type="Self.Оценённые" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Видеоигра">
+              <PropertyRef Name="Номер" />
+            </Principal>
+            <Dependent Role="Оценённые">
+              <PropertyRef Name="Номер_Игры" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Оценённые_Пользователи">
+          <End Role="Пользователи" Type="Self.Пользователи" Multiplicity="1" />
+          <End Role="Оценённые" Type="Self.Оценённые" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Пользователи">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Оценённые">
+              <PropertyRef Name="ID_Пользователя" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Хранилище Каталог_видеоигрModelContainer">
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Администраторы" EntityType="Self.Администраторы" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Видеоигра" EntityType="Self.Видеоигра" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Избранное" EntityType="Self.Избранное" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="лого" EntityType="Self.лого" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Оценённые" EntityType="Self.Оценённые" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Пользователи" EntityType="Self.Пользователи" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Видеоигра_лого" Association="Self.FK_Видеоигра_лого">
+            <End Role="лого" EntitySet="лого" />
+            <End Role="Видеоигра" EntitySet="Видеоигра" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Избранное_Видеоигра" Association="Self.FK_Избранное_Видеоигра">
+            <End Role="Видеоигра" EntitySet="Видеоигра" />
+            <End Role="Избранное" EntitySet="Избранное" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Избранное_Пользователи" Association="Self.FK_Избранное_Пользователи">
+            <End Role="Пользователи" EntitySet="Пользователи" />
+            <End Role="Избранное" EntitySet="Избранное" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Оценённые_Видеоигра" Association="Self.FK_Оценённые_Видеоигра">
+            <End Role="Видеоигра" EntitySet="Видеоигра" />
+            <End Role="Оценённые" EntitySet="Оценённые" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Оценённые_Пользователи" Association="Self.FK_Оценённые_Пользователи">
+            <End Role="Пользователи" EntitySet="Пользователи" />
+            <End Role="Оценённые" EntitySet="Оценённые" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="Каталог_видеоигрModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="Администраторы">
+          <Key>
+            <PropertyRef Name="ID_admin" />
+          </Key>
+          <Property Name="ID_admin" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Никнейм" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Пароль" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Видеоигра">
+          <Key>
+            <PropertyRef Name="Номер" />
+          </Key>
+          <Property Name="Номер" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Название" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Дата_выхода" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Жанр" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Рейтинг" Type="Double" Nullable="false" />
+          <Property Name="Количество_оценок" Type="Int32" Nullable="false" />
+          <Property Name="Студия_разработчик" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Издатель" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Описание" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Среднее_время_прохождения" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Минимальные_системные_требования" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Рекомендованные_системные_требования" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="картинка" Type="Int32" />
+          <NavigationProperty Name="лого" Relationship="Self.FK_Видеоигра_лого" FromRole="Видеоигра" ToRole="лого" />
+          <NavigationProperty Name="Избранное" Relationship="Self.FK_Избранное_Видеоигра" FromRole="Видеоигра" ToRole="Избранное" />
+          <NavigationProperty Name="Оценённые" Relationship="Self.FK_Оценённые_Видеоигра" FromRole="Видеоигра" ToRole="Оценённые" />
+        </EntityType>
+        <EntityType Name="Избранное">
+          <Key>
+            <PropertyRef Name="ID_избранного" />
+          </Key>
+          <Property Name="ID_избранного" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Номер_игры" Type="Int32" Nullable="false" />
+          <Property Name="ID_пользователя" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Видеоигра" Relationship="Self.FK_Избранное_Видеоигра" FromRole="Избранное" ToRole="Видеоигра" />
+          <NavigationProperty Name="Пользователи" Relationship="Self.FK_Избранное_Пользователи" FromRole="Избранное" ToRole="Пользователи" />
+        </EntityType>
+        <EntityType Name="лого">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="screen" Type="Binary" MaxLength="Max" FixedLength="false" Nullable="false" />
+          <Property Name="screen_format" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Видеоигра" Relationship="Self.FK_Видеоигра_лого" FromRole="лого" ToRole="Видеоигра" />
+        </EntityType>
+        <EntityType Name="Оценённые">
+          <Key>
+            <PropertyRef Name="ID_Оцененного" />
+          </Key>
+          <Property Name="ID_Оцененного" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Номер_Игры" Type="Int32" Nullable="false" />
+          <Property Name="ID_Пользователя" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Видеоигра" Relationship="Self.FK_Оценённые_Видеоигра" FromRole="Оценённые" ToRole="Видеоигра" />
+          <NavigationProperty Name="Пользователи" Relationship="Self.FK_Оценённые_Пользователи" FromRole="Оценённые" ToRole="Пользователи" />
+          <Property Name="Оценка" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Пользователи">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Никнейм" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Пароль" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Избранное" Relationship="Self.FK_Избранное_Пользователи" FromRole="Пользователи" ToRole="Избранное" />
+          <NavigationProperty Name="Оценённые" Relationship="Self.FK_Оценённые_Пользователи" FromRole="Пользователи" ToRole="Оценённые" />
+        </EntityType>
+        <Association Name="FK_Видеоигра_лого">
+          <End Role="лого" Type="Self.лого" Multiplicity="0..1" />
+          <End Role="Видеоигра" Type="Self.Видеоигра" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="лого">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Видеоигра">
+              <PropertyRef Name="картинка" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Избранное_Видеоигра">
+          <End Role="Видеоигра" Type="Self.Видеоигра" Multiplicity="1" />
+          <End Role="Избранное" Type="Self.Избранное" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Видеоигра">
+              <PropertyRef Name="Номер" />
+            </Principal>
+            <Dependent Role="Избранное">
+              <PropertyRef Name="Номер_игры" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Оценённые_Видеоигра">
+          <End Role="Видеоигра" Type="Self.Видеоигра" Multiplicity="1" />
+          <End Role="Оценённые" Type="Self.Оценённые" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Видеоигра">
+              <PropertyRef Name="Номер" />
+            </Principal>
+            <Dependent Role="Оценённые">
+              <PropertyRef Name="Номер_Игры" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Избранное_Пользователи">
+          <End Role="Пользователи" Type="Self.Пользователи" Multiplicity="1" />
+          <End Role="Избранное" Type="Self.Избранное" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Пользователи">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Избранное">
+              <PropertyRef Name="ID_пользователя" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Оценённые_Пользователи">
+          <End Role="Пользователи" Type="Self.Пользователи" Multiplicity="1" />
+          <End Role="Оценённые" Type="Self.Оценённые" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Пользователи">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Оценённые">
+              <PropertyRef Name="ID_Пользователя" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Каталог_видеоигрEntities2" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
+          <EntitySet Name="Администраторы" EntityType="Self.Администраторы" />
+          <EntitySet Name="Видеоигра" EntityType="Self.Видеоигра" />
+          <EntitySet Name="Избранное" EntityType="Self.Избранное" />
+          <EntitySet Name="лого" EntityType="Self.лого" />
+          <EntitySet Name="Оценённые" EntityType="Self.Оценённые" />
+          <EntitySet Name="Пользователи" EntityType="Self.Пользователи" />
+          <AssociationSet Name="FK_Видеоигра_лого" Association="Self.FK_Видеоигра_лого">
+            <End Role="лого" EntitySet="лого" />
+            <End Role="Видеоигра" EntitySet="Видеоигра" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Избранное_Видеоигра" Association="Self.FK_Избранное_Видеоигра">
+            <End Role="Видеоигра" EntitySet="Видеоигра" />
+            <End Role="Избранное" EntitySet="Избранное" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Оценённые_Видеоигра" Association="Self.FK_Оценённые_Видеоигра">
+            <End Role="Видеоигра" EntitySet="Видеоигра" />
+            <End Role="Оценённые" EntitySet="Оценённые" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Избранное_Пользователи" Association="Self.FK_Избранное_Пользователи">
+            <End Role="Пользователи" EntitySet="Пользователи" />
+            <End Role="Избранное" EntitySet="Избранное" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Оценённые_Пользователи" Association="Self.FK_Оценённые_Пользователи">
+            <End Role="Пользователи" EntitySet="Пользователи" />
+            <End Role="Оценённые" EntitySet="Оценённые" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Хранилище Каталог_видеоигрModelContainer" CdmEntityContainer="Каталог_видеоигрEntities2">
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="Каталог_видеоигрModel.sysdiagrams">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Администраторы">
+            <EntityTypeMapping TypeName="Каталог_видеоигрModel.Администраторы">
+              <MappingFragment StoreEntitySet="Администраторы">
+                <ScalarProperty Name="ID_admin" ColumnName="ID admin" />
+                <ScalarProperty Name="Никнейм" ColumnName="Никнейм" />
+                <ScalarProperty Name="Пароль" ColumnName="Пароль" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Видеоигра">
+            <EntityTypeMapping TypeName="Каталог_видеоигрModel.Видеоигра">
+              <MappingFragment StoreEntitySet="Видеоигра">
+                <ScalarProperty Name="Номер" ColumnName="Номер" />
+                <ScalarProperty Name="Название" ColumnName="Название" />
+                <ScalarProperty Name="Дата_выхода" ColumnName="Дата_выхода" />
+                <ScalarProperty Name="Жанр" ColumnName="Жанр" />
+                <ScalarProperty Name="Рейтинг" ColumnName="Рейтинг" />
+                <ScalarProperty Name="Количество_оценок" ColumnName="Количество_оценок" />
+                <ScalarProperty Name="Студия_разработчик" ColumnName="Студия_разработчик" />
+                <ScalarProperty Name="Издатель" ColumnName="Издатель" />
+                <ScalarProperty Name="Описание" ColumnName="Описание" />
+                <ScalarProperty Name="Среднее_время_прохождения" ColumnName="Среднее_время_прохождения" />
+                <ScalarProperty Name="Минимальные_системные_требования" ColumnName="Минимальные_системные_требования" />
+                <ScalarProperty Name="Рекомендованные_системные_требования" ColumnName="Рекомендованные_системные_требования" />
+                <ScalarProperty Name="картинка" ColumnName="картинка" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Избранное">
+            <EntityTypeMapping TypeName="Каталог_видеоигрModel.Избранное">
+              <MappingFragment StoreEntitySet="Избранное">
+                <ScalarProperty Name="ID_избранного" ColumnName="ID избранного" />
+                <ScalarProperty Name="Номер_игры" ColumnName="Номер игры" />
+                <ScalarProperty Name="ID_пользователя" ColumnName="ID пользователя" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="лого">
+            <EntityTypeMapping TypeName="Каталог_видеоигрModel.лого">
+              <MappingFragment StoreEntitySet="лого">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="screen" ColumnName="screen" />
+                <ScalarProperty Name="screen_format" ColumnName="screen_format" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Оценённые">
+            <EntityTypeMapping TypeName="Каталог_видеоигрModel.Оценённые">
+              <MappingFragment StoreEntitySet="Оценённые">
+                <ScalarProperty Name="Оценка" ColumnName="Оценка" />
+                <ScalarProperty Name="ID_Оцененного" ColumnName="ID_Оцененного" />
+                <ScalarProperty Name="Номер_Игры" ColumnName="Номер_Игры" />
+                <ScalarProperty Name="ID_Пользователя" ColumnName="ID_Пользователя" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Пользователи">
+            <EntityTypeMapping TypeName="Каталог_видеоигрModel.Пользователи">
+              <MappingFragment StoreEntitySet="Пользователи">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Никнейм" ColumnName="Никнейм" />
+                <ScalarProperty Name="Пароль" ColumnName="Пароль" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Нет" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
